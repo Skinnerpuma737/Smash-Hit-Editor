@@ -10,5 +10,6 @@ public class Segment {
     [XmlElement("")]
     public Box[] box;
 
-    
+    [XmlAttribute("Size")]
+    public string size;
 }
