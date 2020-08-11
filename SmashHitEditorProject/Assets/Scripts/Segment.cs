@@ -8,7 +8,7 @@ public class Segment {
     public string Name;
 
     [XmlElement("")]
-    public Box[] box;
+    public List<Box> box = new List<Box>();
 
     [XmlAttribute("Size")]
     public string size;
