@@ -13,6 +13,8 @@ public class Box
 
     [XmlAttribute("Size")]
     public string size;
-    
+
+    [XmlAttribute("Pos")]
+    public string pos;
 
 }
