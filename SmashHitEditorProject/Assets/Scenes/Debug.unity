@@ -602,6 +602,7 @@ MonoBehaviour:
   grid: {fileID: 1718564969}
   gridmat: {fileID: 2100000, guid: 1a230391029b59a40b6f593045fae25b, type: 2}
   s: {fileID: 963303042}
+  maincamera: {fileID: 963194227}
   gridSize: {x: 0, y: 0}
   cube: {fileID: 7038105386540615059, guid: 0a0ae3c2910da2f4098837b428d119b9, type: 3}
 --- !u!4 &733772593
@@ -1048,7 +1049,7 @@ BoxCollider:
   m_GameObject: {fileID: 1718564969}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

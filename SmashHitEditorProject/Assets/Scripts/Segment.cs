@@ -10,6 +10,9 @@ public class Segment {
     [XmlElement("")]
     public List<Box> box = new List<Box>();
 
+    [XmlIgnore]
+    public Vector3 s;
+
     [XmlAttribute("Size")]
     public string size;
 }

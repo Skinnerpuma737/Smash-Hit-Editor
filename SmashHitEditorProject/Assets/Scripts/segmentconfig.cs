@@ -28,34 +28,9 @@ public class segmentconfig : MonoBehaviour
         }
         #endregion
         d.seg.Name = Name;
-        #region format
-        string x, y, z;
-        if (size.x == Mathf.RoundToInt(size.x))
-        {
-            x = size.x + ".0";
-        }
-        else
-        {
-            x = size.x + "";
-        }
-        if (size.y == Mathf.RoundToInt(size.y))
-        {
-            y = size.y + ".0";
-        }
-        else
-        {
-            y = size.y + "";
-        }
-        if (size.z == Mathf.RoundToInt(size.z))
-        {
-            z = size.z + ".0";
-        }
-        else
-        {
-            z = size.z + "";
-        }
-        #endregion
-        d.seg.size = x + " " + y + " " + z;
+        
+
+        d.seg.s = size;
     }
 
 }
