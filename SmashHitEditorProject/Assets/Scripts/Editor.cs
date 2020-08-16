@@ -17,7 +17,7 @@ public class Editor : MonoBehaviour
 
     public GameObject cube;
     Material Selectmat = null;
-    Transform currentSelected;
+    
     Box selectedBox;
     private void Start()
     {
@@ -38,23 +38,17 @@ public class Editor : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = maincamera.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(maincamera.transform.position, ray.direction * 100f,Color.red,100);
+            Debug.DrawRay(maincamera.transform.position, ray.direction * 100f,Color.red,2);
             Box b = null;
             
             if (Physics.Raycast(ray,out hit,1000f))
             {
-                if (currentSelected != null)
-                {
-                      
-                    Selectmat.color = Color.white;
-                    currentSelected.GetComponent<Renderer>().material = Selectmat;
-
-                }
+                
                 
 
                 Transform objectHit = hit.transform;
-                Selectmat = new Material(objectHit.GetComponent<Renderer>().material);
-                currentSelected = objectHit;
+                
+                
                 for (int i = 0; i < d.seg.box.Count; i++)
                 {
                     if (d.seg.box[i].visual == objectHit.transform.gameObject)
@@ -66,7 +60,7 @@ public class Editor : MonoBehaviour
                 Selectmat.color = Color.yellow;
                 objectHit.GetComponent<Renderer>().material = Selectmat;
                 selectedBox = b;
-                Debug.Log(currentSelected);
+                
             }
             
         }
