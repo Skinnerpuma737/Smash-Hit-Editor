@@ -15,8 +15,9 @@ public class Editor : MonoBehaviour
     public Vector2 gridSize;
     Material g;
 
+    public GameObject selectionBox;
     public GameObject cube;
-    Material Selectmat = null;
+    
     
     Box selectedBox;
     private void Start()
@@ -33,36 +34,14 @@ public class Editor : MonoBehaviour
         g.mainTextureScale = gridSize;
         grid.GetComponent<Renderer>().material = g;
         #endregion
-
-        if (Input.GetMouseButtonDown(1))
+        if (selectedBox != null)
         {
-            RaycastHit hit;
-            Ray ray = maincamera.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(maincamera.transform.position, ray.direction * 100f,Color.red,2);
-            Box b = null;
-            
-            if (Physics.Raycast(ray,out hit,1000f))
-            {
-                
-                
-
-                Transform objectHit = hit.transform;
-                
-                
-                for (int i = 0; i < d.seg.box.Count; i++)
-                {
-                    if (d.seg.box[i].visual == objectHit.transform.gameObject)
-                    {
-                        b = d.seg.box[i];
-                    }
-                }
-                
-                Selectmat.color = Color.yellow;
-                objectHit.GetComponent<Renderer>().material = Selectmat;
-                selectedBox = b;
-                
-            }
-            
+            MoveCubeInput();
+        }
+        SelectCube();
+        if (selectedBox != null)
+        {
+            selectionBox.transform.position = selectedBox.visual.transform.position;
         }
     }
 
@@ -80,5 +59,70 @@ public class Editor : MonoBehaviour
         b.p = new Vector3(-xpos, -ypos, 0);
         d.seg.box.Add(b);
         
+    }
+
+    public void SelectCube()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            Ray ray = maincamera.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(maincamera.transform.position, ray.direction * 100f, Color.red, 2);
+            Box b = null;
+
+            if (Physics.Raycast(ray, out hit, 1000f))
+            {
+                Transform objectHit = hit.transform;
+
+                for (int i = 0; i < d.seg.box.Count; i++)
+                {
+                    if (d.seg.box[i].visual == objectHit.gameObject)
+                    {
+                        b = d.seg.box[i];
+                    }
+                }
+            }
+            Debug.Log(b);
+            selectedBox = b;
+            if (b == null)
+            {
+                selectionBox.transform.position = new Vector3(-1000, 0, -1000);
+            }
+        }
+    }
+
+    public void MoveCubeInput()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
+        {
+            MoveCube(new Vector3(0, 1, 0));
+        }
+        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.S))
+        {
+            MoveCube(new Vector3(0, -1, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveCube(new Vector3(0, 0, 1));
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveCube(new Vector3(0, 0, -1));
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            MoveCube(new Vector3(-1, 0, 0));
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            MoveCube(new Vector3(1, 0, 0));
+        }
+        
+    }
+
+    public void MoveCube(Vector3 offset)
+    {
+        selectedBox.visual.transform.position += offset;
+        selectedBox.p += offset;
     }
 }
