@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Editor : MonoBehaviour
 {
+    
     public Data d;
     public GameObject grid;
     public Material gridmat;
@@ -17,9 +19,12 @@ public class Editor : MonoBehaviour
 
     public GameObject selectionBox;
     public GameObject cube;
-    
-    
-    Box selectedBox;
+    public GameObject scaleUI;
+    public InputField scaleUIX;
+    public InputField scaleUIY;
+    public InputField scaleUIZ;
+
+    Box selectedBox = null;
     private void Start()
     {
         g = new Material(gridmat);
@@ -30,25 +35,42 @@ public class Editor : MonoBehaviour
         #region grid
         gridSize = new Vector2(s.size.x, s.size.z);
         grid.transform.localScale = new Vector3(gridSize.x, 0.01f, gridSize.y);
-        grid.transform.position = new Vector3(0, 0, 0) + new Vector3(gridSize.x / 2,-0.5f,gridSize.y / 2);
+        grid.transform.position = new Vector3(0, 0, 0) + new Vector3(gridSize.x / 2,-0f,gridSize.y / 2);
         g.mainTextureScale = gridSize;
         grid.GetComponent<Renderer>().material = g;
         #endregion
+        
         if (selectedBox != null)
         {
             MoveCubeInput();
+            SetScale();
         }
         SelectCube();
         if (selectedBox != null)
         {
-            selectionBox.transform.position = selectedBox.visual.transform.position;
+            selectionBox.transform.position = selectedBox.visual.transform.position + 
+                new Vector3(selectedBox.visual.transform.localScale.x / 2, selectedBox.visual.transform.localScale.y / 2, -(selectedBox.visual.transform.localScale.z / 2));
+            selectionBox.transform.localScale = selectedBox.s + new Vector3(0.1f,0.1f,0.1f);
+        }
+
+        
+
+        if (selectedBox != null)
+        {
+            scaleUI.SetActive(true);
+        }
+        else
+        {
+            scaleUI.SetActive(false);
+            
         }
     }
 
     public void CreateCube()
     {
         GameObject obj = Instantiate(cube);
-        obj.transform.position = new Vector3(0.5f, 0, 0.5f);
+        obj.transform.position = new Vector3(0.0f, 0, 0f);
+        obj.transform.localScale = new Vector3(1, 1, -1f);
         Box b = new Box();
         b.s = new Vector3(1, 1, 1);
         b.visual = obj;
@@ -84,6 +106,12 @@ public class Editor : MonoBehaviour
             }
             Debug.Log(b);
             selectedBox = b;
+            if (selectedBox != null)
+            {
+                scaleUIX.text = b.s.x + "";
+                scaleUIY.text = b.s.y + "";
+                scaleUIZ.text = b.s.z + "";
+            }
             if (b == null)
             {
                 selectionBox.transform.position = new Vector3(-1000, 0, -1000);
@@ -124,5 +152,15 @@ public class Editor : MonoBehaviour
     {
         selectedBox.visual.transform.position += offset;
         selectedBox.p += offset;
+    }
+
+    public void SetScale()
+    {
+        if (scaleUIX.text == "" || scaleUIY.text == "" || scaleUIZ.text == "")
+        {
+            return;
+        }
+        selectedBox.s = new Vector3(float.Parse(scaleUIX.text), float.Parse(scaleUIY.text), float.Parse(scaleUIZ.text));
+        selectedBox.visual.transform.localScale = new Vector3(float.Parse(scaleUIX.text), float.Parse(scaleUIY.text), -float.Parse(scaleUIZ.text));
     }
 }
