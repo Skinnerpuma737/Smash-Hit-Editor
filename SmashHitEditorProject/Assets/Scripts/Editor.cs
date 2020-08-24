@@ -18,11 +18,28 @@ public class Editor : MonoBehaviour
     Material g;
 
     public GameObject selectionBox;
-    public GameObject cube;
+
+    public InputField snapA;
+    public InputField snapB;
+
+    /// <summary>
+    /// Scale UI
+    /// </summary>
     public GameObject scaleUI;
     public InputField scaleUIX;
     public InputField scaleUIY;
     public InputField scaleUIZ;
+    public RectTransform scalePointOne;
+    public RectTransform scalePointTwo;
+
+
+    /// <summary>
+    /// In Editor
+    /// </summary>
+    public float snapPrecision = 1.0f;
+
+    public GameObject cube;
+
 
     Box selectedBox = null;
     private void Start()
@@ -39,12 +56,32 @@ public class Editor : MonoBehaviour
         g.mainTextureScale = gridSize;
         grid.GetComponent<Renderer>().material = g;
         #endregion
-        
+
+        if (snapA.text == "")
+        {
+            snapA.text = "1";
+        }
+        if (snapB.text == "")
+        {
+            snapB.text = "1";
+        }
+        if (snapA.interactable == true)
+        {
+            snapPrecision = float.Parse(snapA.text);
+        }
+        else if (snapB.interactable == true)
+        {
+            snapPrecision = float.Parse(snapB.text);
+        }
+
+
         if (selectedBox != null)
         {
             MoveCubeInput();
             SetScale();
         }
+
+
         SelectCube();
         if (selectedBox != null)
         {
@@ -57,12 +94,13 @@ public class Editor : MonoBehaviour
 
         if (selectedBox != null)
         {
-            scaleUI.SetActive(true);
+            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointTwo.transform.position.y, scaleUI.transform.position.z), 2);
         }
         else
         {
-            scaleUI.SetActive(false);
             
+            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointOne.transform.position.y, scaleUI.transform.position.z), 2);
+
         }
     }
 
@@ -123,27 +161,27 @@ public class Editor : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
         {
-            MoveCube(new Vector3(0, 1, 0));
+            MoveCube(new Vector3(0, snapPrecision, 0));
         }
         else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.S))
         {
-            MoveCube(new Vector3(0, -1, 0));
+            MoveCube(new Vector3(0, -snapPrecision, 0));
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            MoveCube(new Vector3(0, 0, 1));
+            MoveCube(new Vector3(0, 0, snapPrecision));
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            MoveCube(new Vector3(0, 0, -1));
+            MoveCube(new Vector3(0, 0, -snapPrecision));
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            MoveCube(new Vector3(-1, 0, 0));
+            MoveCube(new Vector3(-snapPrecision, 0, 0));
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            MoveCube(new Vector3(1, 0, 0));
+            MoveCube(new Vector3(snapPrecision, 0, 0));
         }
         
     }
