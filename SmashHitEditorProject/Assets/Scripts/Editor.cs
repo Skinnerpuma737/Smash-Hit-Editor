@@ -94,12 +94,12 @@ public class Editor : MonoBehaviour
 
         if (selectedBox != null)
         {
-            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointTwo.transform.position.y, scaleUI.transform.position.z), 2);
+            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointTwo.transform.position.y, scaleUI.transform.position.z), 1024 * Time.deltaTime);
         }
         else
         {
             
-            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointOne.transform.position.y, scaleUI.transform.position.z), 2);
+            scaleUI.transform.position = Vector3.MoveTowards(scaleUI.transform.position, new Vector3(scaleUI.transform.position.x, scalePointOne.transform.position.y, scaleUI.transform.position.z), 1024 * Time.deltaTime);
 
         }
     }

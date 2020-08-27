@@ -22,6 +22,6 @@ public class CreatePanel : MonoBehaviour
     }
     private void Update()
     {
-        panel.position = Vector3.MoveTowards(panel.position, new Vector3(movePos.x, movePos.y, 0),2);
+        panel.position = Vector3.MoveTowards(panel.position, new Vector3(movePos.x, movePos.y, 0),1024 * Time.deltaTime);
     }
 }

@@ -28,15 +28,15 @@ public class PrecisionModifier : MonoBehaviour
         }
         if (modifier == false)
         {
-            a.transform.position = Vector3.MoveTowards(a.transform.position, new Vector3(430, a.transform.position.y, 0), 2);
-            b.transform.position = Vector3.MoveTowards(b.transform.position, new Vector3(540, b.transform.position.y, 0), 2);
+            a.transform.position = Vector3.MoveTowards(a.transform.position, new Vector3(430, a.transform.position.y, 0), 1024 * Time.deltaTime);
+            b.transform.position = Vector3.MoveTowards(b.transform.position, new Vector3(540, b.transform.position.y, 0), 1024 * Time.deltaTime);
             a.GetComponent<InputField>().interactable = true;
             b.GetComponent<InputField>().interactable = false;
         }
         else if (modifier == true)
         {
-            a.transform.position = Vector3.MoveTowards(a.transform.position, new Vector3(540, a.transform.position.y, 0), 2);
-            b.transform.position = Vector3.MoveTowards(b.transform.position, new Vector3(430, b.transform.position.y, 0), 2);
+            a.transform.position = Vector3.MoveTowards(a.transform.position, new Vector3(540, a.transform.position.y, 0), 1024 * Time.deltaTime);
+            b.transform.position = Vector3.MoveTowards(b.transform.position, new Vector3(430, b.transform.position.y, 0), 1024 * Time.deltaTime);
             a.GetComponent<InputField>().interactable = false;
             b.GetComponent<InputField>().interactable = true;
         }
