@@ -10,9 +10,12 @@ public class Segment {
     [XmlElement("")]
     public List<Box> box = new List<Box>();
 
+    [XmlElement("")]
+    public List<Obstacle> obstacle = new List<Obstacle>();
+
     [XmlIgnore]
     public Vector3 s;
 
-    [XmlAttribute("Size")]
+    [XmlAttribute("size")]
     public string size;
 }

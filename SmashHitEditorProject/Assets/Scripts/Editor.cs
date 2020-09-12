@@ -17,6 +17,8 @@ public class Editor : MonoBehaviour
     public Vector2 gridSize;
     Material g;
 
+    public GameObject cameraLine;
+
     public GameObject selectionBox;
 
     public InputField snapA;
@@ -39,6 +41,7 @@ public class Editor : MonoBehaviour
     public float snapPrecision = 1.0f;
 
     public GameObject cube;
+    public GameObject[] obstacleVisuals;
 
 
     Box selectedBox = null;
@@ -56,6 +59,8 @@ public class Editor : MonoBehaviour
         g.mainTextureScale = gridSize;
         grid.GetComponent<Renderer>().material = g;
         #endregion
+        SetCameraLine();
+
 
         if (snapA.text == "")
         {
@@ -120,6 +125,30 @@ public class Editor : MonoBehaviour
         d.seg.box.Add(b);
         
     }
+
+    public void CreateObstacle(int visualId)
+    {
+        GameObject obj = null;
+        if (visualId >= 0)
+        {
+            obj = Instantiate(obstacleVisuals[visualId]);
+        }
+        else
+        {
+            obj = Instantiate(cube);
+        }
+
+        obj.transform.position = new Vector3(0.0f, 0, 1);
+        Obstacle o = new Obstacle();
+        o.visual = obj;
+
+        float xpos = s.size.x / 2;
+        float ypos = s.size.y / 2;
+
+        o.p = new Vector3(-xpos, -ypos, 0);
+        d.seg.obstacle.Add(o);
+    }
+
 
     public void SelectCube()
     {
@@ -200,5 +229,13 @@ public class Editor : MonoBehaviour
         }
         selectedBox.s = new Vector3(float.Parse(scaleUIX.text), float.Parse(scaleUIY.text), float.Parse(scaleUIZ.text));
         selectedBox.visual.transform.localScale = new Vector3(float.Parse(scaleUIX.text), float.Parse(scaleUIY.text), -float.Parse(scaleUIZ.text));
+    }
+
+    public void SetCameraLine()
+    {
+        float cameraY = 0 + (s.size.y / 2) + 0.5f;
+        cameraLine.transform.position = new Vector3(grid.transform.position.x, cameraY, 498);
+        
+        
     }
 }

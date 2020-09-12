@@ -16,10 +16,10 @@ public class Box
     [XmlIgnore]
     public Vector3 p;
 
-    [XmlAttribute("Size")]
+    [XmlAttribute("size")]
     public string size;
 
-    [XmlAttribute("Pos")]
+    [XmlAttribute("pos")]
     public string pos;
 
 }

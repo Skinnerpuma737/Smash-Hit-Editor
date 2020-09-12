@@ -111,6 +111,44 @@ public class Data : MonoBehaviour
             b.pos = x + " " + y + " " + z;
             
         }
+
+        foreach (Obstacle o in seg.obstacle)
+        {
+            string x, y, z;
+            #region formatpos
+            if (o.p.x == Mathf.RoundToInt(o.p.x))
+            {
+                x = o.p.x + ".0";
+            }
+            else
+            {
+                x = o.p.x + "";
+            }
+            if (o.p.y == Mathf.RoundToInt(o.p.y))
+            {
+                y = o.p.y + ".0";
+            }
+            else
+            {
+                y = o.p.y + "";
+            }
+            if (o.p.z == Mathf.RoundToInt(o.p.z))
+            {
+                z = o.p.z + ".0";
+            }
+            else
+            {
+                z = o.p.z + "";
+            }
+            #endregion
+            o.pos = x + " " + y + " " + z;
+
+            o.param1 = o.parameters[0];
+            o.param2 = o.parameters[1];
+            o.param3 = o.parameters[2];
+            o.param4 = o.parameters[3];
+
+        }
         /*Convert to xml*/
         XML.ConvertToXML(seg, seg.Name + ".xml");
     }
