@@ -14,42 +14,15 @@ public class Data : MonoBehaviour
     public void Save()
     {
         /*This function saves to .xml*/
-
         
-        #region format segment size
-        /*This formats the segment size to a string in the smash hit size format*/
-        string sx, sy, sz;
-        if (seg.s.x == Mathf.RoundToInt(seg.s.x))
-        {
-            sx = seg.s.x + ".0";
-        }
-        else
-        {
-            sx = seg.s.x + "";
-        }
-        if (seg.s.y == Mathf.RoundToInt(seg.s.y))
-        {
-            sy = seg.s.y + ".0";
-        }
-        else
-        {
-            sy = seg.s.y + "";
-        }
-        if (seg.s.z == Mathf.RoundToInt(seg.s.z))
-        {
-            sz = seg.s.z + ".0";
-        }
-        else
-        {
-            sz = seg.s.z + "";
-        }
-        seg.size = sx + " " + sy + " " + sz;
-        #endregion
+        // Convert the segment size to a string
+        seg.size = seg.s.x + " " + seg.s.y + " " + seg.s.z;
+        
         foreach (Box b in seg.box)
         {
             /*This loop loops over the box array in seg and formats the size and position of each box
-             we do this to make it easier to work with the size and position of the boxs while in the
-             editor*/
+            we do this to make it easier to work with the size and position of the boxs while in the
+            editor*/
             string x;
             string y;
             string z;
