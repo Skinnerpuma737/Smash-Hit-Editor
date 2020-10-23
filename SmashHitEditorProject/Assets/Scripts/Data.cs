@@ -7,13 +7,12 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    [XmlElement("Segment")]
-    public Segment seg;
-
+    [XmlElement("segment")] // this doesn't seem to work
+    public segment seg;
     
     public void Save()
     {
-        /*This function saves to .xml*/
+        /* This function saves to a .xml file. */
         
         // Convert the segment size to a string
         seg.size = seg.s.x + " " + seg.s.y + " " + seg.s.z;
