@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
+
 [System.Serializable]
 public class Segment { 
     [XmlIgnore]
