@@ -4,9 +4,7 @@ using UnityEngine;
 using System.Xml.Serialization;
 
 [System.Serializable]
-public class segment { 
-    /* This class name needs to be lower case otherwise the XML searializer
-     * thinks that Segment should be capitialized, which doesn't work. */
+public class Segment { 
     [XmlIgnore]
     public string Name;
 
