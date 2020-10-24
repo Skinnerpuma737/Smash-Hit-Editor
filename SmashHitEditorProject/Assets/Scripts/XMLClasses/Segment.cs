@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Xml.Serialization;
 
 [System.Serializable]
+
+[XmlRoot(ElementName = "segment")]
 public class Segment { 
     [XmlIgnore]
     public string Name;

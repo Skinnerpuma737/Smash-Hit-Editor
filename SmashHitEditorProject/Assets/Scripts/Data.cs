@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    [XmlElement("segment")]
+    
     public Segment seg;
     
     public void Save()
